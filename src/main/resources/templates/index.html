@@ -48,22 +48,23 @@ and open the template in the editor.
 
                 <div class="threadbox">
                 </div>
-                <div th:each="post : ${post}" class="table-post">
+                <div th:each="post : ${list}" class="table-post">
                     <div class="post-container">
                         <div class="user-profile">
                             <img src="/css/image/pp.png">
                             <div class="button">
                                 <p th:text="${ post.user.name }">Brfootball</p> 
-                                <span  style="float: right;">
-                                    <a th:href="@{/post/{id}/edit(id=${ post.id })}"  class="btn btn-info text-white ">
+                                <span style="float: right;">
+                                    <a th:if="(${session.id} == *{post.user.id} )" th:href="@{/post/{id}/edit(id=${ post.id })}"  class="btn btn-info text-white ">
                                             <i class='bx bx-pencil'></i>
                                     </a>
-                                    <form onSubmit="return confirm('Do you really want to delete Post?')" method="POST" action="#" th:action="@{/post/{id}/delete(id=${ post.id })}">
+                                    <form th:if="(${session.id} == *{post.user.id} )" onSubmit="return confirm('Do you really want to delete Post?')" method="POST" action="#" th:action="@{/post/{id}/delete(id=${ post.id })}">
                                         <button type="submit" class="btn btn-danger text-white "><i class='bx bx-trash'></i></button>
                                     </form>
                                 </span>
                                 <a th:text="${ post.category.name }">Sports</a>
                                 
+                            <!--    <input type="text" th:value="${session.id}"/> -->
                                 
                             </div>
                         </div>

@@ -37,11 +37,15 @@ public class MainController {
     private CategoryService categoryService;
 
    @GetMapping("/")
-    public String index(Model model) {
-        List<Post> post = postService.getAll();
+    public String index(Model model, HttpServletRequest request) {
+        HttpSession session = request .getSession(true);
+        
+        long user_id = (long) session.getAttribute("id");
+        
+        List<Post> post = postService.findByUserId(user_id);
+        
+        model.addAttribute("list", postService.getAll());
         model.addAttribute("post", post);
-        
-        
         
         return "index";
     }
@@ -74,10 +78,11 @@ public class MainController {
 
     @GetMapping("/post/{id}/edit")
     public String editPost(@PathVariable(value = "id") long id, Model model) {
+        Post post = postService.getById(id);
         List<Category> category = categoryService.getAll();
         model.addAttribute("category", category);
         
-        Post post = postService.getById(id);
+
 
         model.addAttribute("post", post);
         return "editpost";

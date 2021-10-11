@@ -29,7 +29,7 @@ public class PostService implements PostInterface{
     }
 
     @Override
-    public List<Post> fingByUserId(long user_id) {
+    public List<Post> findByUserId(long user_id) {
         return postRepository.findByUserId(user_id);
     }
 

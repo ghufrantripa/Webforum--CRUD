@@ -17,7 +17,7 @@ public interface PostInterface {
 
     List<Post> getAll();
     
-    List<Post> fingByUserId(long user_id);
+    List<Post> findByUserId(long user_id);
     
     void store(Post post);
     
